@@ -12,7 +12,7 @@
 :root {
   --orange: #F47B20;
   --orange-light: #FFF3E8;
-  --brown: #3B1F0C;
+  --brown:#A9BB45;
   --brown-mid: #7A4524;
   --cream: #FFF8F2;
   --white: #FFFFFF;
@@ -575,9 +575,11 @@ section {
 }
  
 .about-image-side img {
-  width: 360px;
+  width: 236px;
   max-width: 100%;
   filter: drop-shadow(0 24px 64px rgba(0, 0, 0, 0.4));
+border-radius: 20px;
+
 }
  
 /* ── NEWSLETTER ── */
@@ -719,7 +721,11 @@ footer p {
   font-weight: 600;
   color: rgba(255, 255, 255, 0.4);
 }
- 
+ footer .img{
+padding: 12px;
+width: 260px;
+  border-radius: 20px;  
+ }
 /* ── ANIMATIONS ── */
 .reveal {
   opacity: 0;
