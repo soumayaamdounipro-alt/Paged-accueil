@@ -322,9 +322,18 @@ nav.scrolled {
   font-size: 20px;
 }
  
-.deco-1 { top: 12%;    left: -10px;  }
-.deco-2 { bottom: 22%; right: -20px; }
-.deco-3 { top: 58%;    left: -30px;  }
+.deco-1 {
+     top: 12%;   
+      left: 106px;  
+    }
+.deco-2 {
+     bottom: 22%;
+     left: 12px;
+     }
+.deco-3 {
+     top: 58%;  
+      right: 0px; 
+     }
  
 /* ── WAVE DIVIDER ── */
 .wave-divider {
