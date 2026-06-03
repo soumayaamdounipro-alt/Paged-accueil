@@ -1,27 +1,20 @@
 <?php
-// ══════════════════════════════════════════
-// COOK WITH SOUMI — profile.php
-// Protected profile page (logged-in users only)
-// ══════════════════════════════════════════
-
 session_start();
 
-// Vérification de connexion
+// Vérifier si l'utilisateur est connecté
 if (empty($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 
-require_once 'config/db.php';
+require_once __DIR__ . '/db.php';
 
 $db = getDB();
 
-// Récupération des informations utilisateur
 $stmt = $db->prepare(
-    "SELECT id, username, email, created_at
-     FROM users
-     WHERE id = ?
-     LIMIT 1"
+    "SELECT id, nom, prenom, email
+     FROM utilisateurs
+     WHERE id = ?"
 );
 
 $stmt->bind_param("i", $_SESSION['user_id']);
@@ -32,26 +25,27 @@ $user = $result->fetch_assoc();
 
 $stmt->close();
 
-// Utilisateur supprimé de la base
 if (!$user) {
     session_destroy();
     header('Location: login.php');
     exit;
 }
 
-$pageTitle = 'My Profile';
+$pageTitle = 'Mon Profil';
 
-include 'includes/header.php';
+include 'header.php';
 ?>
 
 <main class="profile-page">
 
     <div class="profile-card">
 
-        <div class="profile-avatar">👩‍🍳</div>
+        <div class="profile-avatar">
+            👩‍🍳
+        </div>
 
         <h1 class="profile-name">
-            <?php echo htmlspecialchars($user['username']); ?>
+            <?php echo htmlspecialchars($user['prenom'] . ' ' . $user['nom']); ?>
         </h1>
 
         <p class="profile-email">
@@ -60,49 +54,34 @@ include 'includes/header.php';
 
         <div class="profile-info">
 
-            <div class="profile-info-row">
-                <span class="profile-info-label">
-                    Member since
-                </span>
-
-                <span class="profile-info-value">
-                    <?php echo date('F j, Y', strtotime($user['created_at'])); ?>
-                </span>
+            <div class="info-item">
+                <strong>ID du compte :</strong>
+                #<?php echo $user['id']; ?>
             </div>
 
-            <div class="profile-info-row">
-                <span class="profile-info-label">
-                    Account ID
-                </span>
-
-                <span class="profile-info-value">
-                    #<?php echo htmlspecialchars($user['id']); ?>
-                </span>
-            </div>
-
-            <div class="profile-info-row">
-                <span class="profile-info-label">
-                    Status
-                </span>
-
-                <span
-                    class="profile-info-value"
-                    style="color:#276749;font-weight:800;">
-                    ✔ Active
-                </span>
+            <div class="info-item">
+                <strong>Statut :</strong>
+                ✔ Actif
             </div>
 
         </div>
 
-        <a href="logout.php" class="btn-logout">
-            🚪 Log out
-        </a>
+        <div class="profile-actions">
+
+            <a href="accueil.html" class="btn-profile">
+                🏠 Accueil
+            </a>
+
+            <a href="logout.php" class="btn-profile logout-btn">
+                🚪 Déconnexion
+            </a>
+
+        </div>
 
     </div>
 
 </main>
 
 <?php
-closeDB();
-include 'includes/footer.php';
+include 'footer.php';
 ?>

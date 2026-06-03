@@ -1,19 +1,13 @@
 <?php
-// ══════════════════════════════════════════
-// COOK WITH SOUMI — login.php
-// User login page
-// ══════════════════════════════════════════
-
 session_start();
 
-// Déjà connecté
+// Si déjà connecté
 if (!empty($_SESSION['user_id'])) {
-    header('Location: profile.php');
+    header('Location:Accueil.html');
     exit;
 }
 
 require_once(__DIR__ . '/db.php');
-
 $error = '';
 $oldEmail = '';
 
@@ -28,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validation
     if (empty($email) || empty($password)) {
 
-        $error = 'Please fill in all fields.';
+        $error = 'Veuillez remplir tous les champs.';
 
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-        $error = 'Please enter a valid e-mail address.';
+        $error = 'Adresse e-mail invalide.';
 
     } else {
 
@@ -40,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Recherche de l'utilisateur
         $stmt = $db->prepare(
-            "SELECT id, username, password_hash
-             FROM users
+            "SELECT id, nom, `Prenom`, email, password
+             FROM utilisateurs
              WHERE email = ?
              LIMIT 1"
         );
@@ -55,9 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
 
         // Vérification du mot de passe
-        if (!$user || !password_verify($password, $user['password_hash'])) {
+        if (!$user || !password_verify($password, $user['password'])) {
 
-            $error = 'Invalid e-mail or password.';
+            $error = 'E-mail ou mot de passe incorrect.';
 
         } else {
 
@@ -65,15 +59,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_regenerate_id(true);
 
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
+            $_SESSION['username'] = $user['nom'];
+            $_SESSION['prenom'] = $user['Prenom'];
+            $_SESSION['email'] = $user['email'];
 
-            header('Location: profile.php');
+            header('Location: Accueil.html');
             exit;
         }
     }
 }
 
-$pageTitle = 'Log in';
+$pageTitle = 'Connexion';
 
 include 'header.php';
 ?>
@@ -87,10 +83,10 @@ include 'header.php';
             src="./img/CookWithSoumi-logo.png"
             alt="Cook With Soumi Logo">
 
-        <h1 class="auth-title">Welcome back!</h1>
+        <h1 class="auth-title">Bienvenue !</h1>
 
         <p class="auth-subtitle">
-            Log in to your Cook With Soumi account
+            Connectez-vous à votre compte Cook With Soumi
         </p>
 
         <?php if ($error): ?>
@@ -102,8 +98,7 @@ include 'header.php';
         <form
             class="auth-form"
             method="POST"
-            action="login.php"
-            novalidate>
+            action="login.php">
 
             <div class="form-group">
 
@@ -114,7 +109,7 @@ include 'header.php';
                     id="email"
                     name="email"
                     value="<?php echo $oldEmail; ?>"
-                    placeholder="you@example.com"
+                    placeholder="vous@email.com"
                     required
                     autocomplete="email">
 
@@ -122,27 +117,27 @@ include 'header.php';
 
             <div class="form-group">
 
-                <label for="password">Password</label>
+                <label for="password">Mot de passe</label>
 
                 <input
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="Your password"
+                    placeholder="Votre mot de passe"
                     required
                     autocomplete="current-password">
 
             </div>
 
             <button type="submit" class="btn-auth">
-                Log in 🍽️
+                Se connecter 🍽️
             </button>
 
         </form>
 
         <p class="auth-link">
-            No account yet ?
-            <a href="register.php">Sign up</a>
+            Pas encore de compte ?
+            <a href="register.php">Créer un compte</a>
         </p>
 
     </div>
@@ -151,5 +146,5 @@ include 'header.php';
 
 <?php
 closeDB();
-include 'includes/footer.php';
+include 'footer.php';
 ?>
