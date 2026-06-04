@@ -5,31 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Cook With Soumi</title>
         <link rel="stylesheet" href="css/Accueil.css" />
+                <link rel="stylesheet" href="css/navbar.css" />
+
     </head>
     <body>
         <!-- NAV -->
-        <nav id="navbar">
-            <img
-                src="Cook_With_Soumi_logo.png"
-                alt="Cook With Soumi"
-                class="nav-logo"
-                onerror="
-                    this.style.display = 'none';
-                    document.getElementById('navTitle').style.display = 'block';
-                "
-            />
-            <span id="navTitle" style="display: none"
-                >Cook With <span>Soumi</span></span
-            >
-            <ul class="nav-links">
-                <li><a href="#recettes">Recettes</a></li>
-                <li><a href="#categories">Catégories</a></li>
-                <li><a href="#about">À propos</a></li>
-                <li><a href="profile.php">profile</a></li>
+      <?php
+require_once(__DIR__ . '/navbar.php');
 
-                <li><a href="#newsletter" class="nav-cta">S'abonner</a></li>
-            </ul>
-        </nav>
+?>
 
         <!-- HERO -->
         <section class="hero">
