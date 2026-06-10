@@ -5,7 +5,7 @@
 // ══════════════════════════════════════════
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'recettes_de_cuisine');
+define('DB_NAME', 'cook_with_soumi');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
