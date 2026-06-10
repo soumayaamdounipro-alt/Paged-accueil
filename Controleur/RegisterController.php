@@ -46,7 +46,7 @@ class RegisterController
             if (empty($errors)) {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 if ($this->model->createUser($lastName, $firstName, $email, $hashedPassword)) {
-                    header('Location: ' . URL . '?page=login&registered=1');
+                    header('Location: ' . URL . '?page=login');
                     exit;
                 } else {
                     $errors[] = 'Erreur lors de la création du compte.';

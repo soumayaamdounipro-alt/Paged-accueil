@@ -1,7 +1,7 @@
 <?php
 // ══════════════════════════════════════════
 // COOK WITH SOUMI — Router principal
-// URL: http://localhost/titre/
+// URL: http://localhost//
 // ══════════════════════════════════════════
 
 session_start();

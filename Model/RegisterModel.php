@@ -31,9 +31,8 @@ class RegisterModel
         return $exists;
     }
 
-    public function createUser(string $lastName, string $firstName, string $email, string $password)
+    public function createUser(string $lastName, string $firstName, string $email, string $hash)
     {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $this->db->prepare("
             INSERT INTO Users

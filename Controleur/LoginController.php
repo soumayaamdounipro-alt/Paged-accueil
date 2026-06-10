@@ -32,9 +32,12 @@ class LoginController
                 $error = 'Adresse e-mail invalide.';
             } else {
                 $user = $this->userModel->getUserByEmail($email);
+                var_dump($user);
+                echo password_verify($password, $user['password']);
+                echo 'azerty';
 
-                if (!$user || !password_verify($password, $user['password'])) {
-                    $error = 'E-mail ou mot de passe incorrect.';
+                if (!($user) || !(password_verify($password, $user['password']))) {
+                    $error = 'E-mail ou mot de passe incorrect.test1234';
                 } else {
                     session_regenerate_id(true);
                     $_SESSION['user_id']  = $user['id'];
