@@ -14,7 +14,7 @@ class CategorieRecettesModel
     // Liste des recettes avec leur catégorie
     public function getRecettesAvecCategorie()
     {
-        $sql = "SELECT r.recipe_id,
+        $sql = "SELECT
                        r.name AS recette,
                        c.label AS categorie
                 FROM recipes r
